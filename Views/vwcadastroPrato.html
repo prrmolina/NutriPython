@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Prato</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 600px;
+            background-color: rgba(85,107, 47, 0.7);
+            width: 1000px;
+            margin: 0 auto;
+            margin-top: 120px;
+        }
+        .form-container {
+            background: DarkOliveGreen;
+            padding: 150px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0,.1);
+            color: #FFFAFA;
+        }
+        h2 {
+            padding: 10px;
+            color: #FFFAFA;
+            font-family: Helvetica;
+            font-size: 24px;
+        }
+        label {
+            margin-top: 10px;
+            display: block;
+            color: #FFFAFA;
+            font-family: Helvetica;
+            font-size: 14px;
+        }
+        input, textarea {
+            width: 80%;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button {
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+            border: none;
+            background-color: #28a745;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .dish-list {
+            background: white;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            max-width: 400px;
+            margin-top: 20px;
+        }
+        .dish-item {
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .dish-item img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="form-container">
+        <h2>Cadastrar uma Refeição</h2>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <label for="id_nome">Nome do Prato:</label>
+            {{ form.nome }}
+
+            <label for="id_modo_preparo">Modo de Preparo:</label>
+            {{ form.modo_preparo }}
+
+            <label for="id_ingredientes">Ingredientes:</label>
+            {{ form.ingredientes }}
+
+            <label for="id_calorias">Quantidade de Calorias:</label>
+            {{ form.calorias }}
+
+            <label for="id_imagem">Imagem do Prato:</label>
+            {{ form.imagem }}
+
+            <button type="submit">Cadastrar Prato</button>
+        </form>
+    </div>
+
+    <div class="dish-list" id="dishList">
+        <h3>Pratos Cadastrados:</h3>
+        {% for prato in pratos %}
+            <div class="dish-item">
+                <strong>{{ prato.nome }}</strong><br>
+                <img src="{{ prato.imagem.url }}" alt="{{ prato.nome }}"><br>
+ <strong>Modo de Preparo:</strong> {{ prato.modo_preparo }}<br>
+                <strong>Ingredientes:</strong> {{ prato.ingredientes }}<br>
+                <strong>Calorias:</strong> {{ prato.calorias }} kcal
+            </div>
+        {% empty %}
+            <p>Nenhum prato cadastrado.</p>
+        {% endfor %}
+    </div>
+
+</body>
+</html>
