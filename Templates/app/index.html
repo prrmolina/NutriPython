@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <title>Balanced Diet</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{% static 'css/nutri.css' %}">
+</head>
+<body>
+    <header class="bg-light p-3 fixed-top">
+        <div class="container d-flex justify-content-between align-items-center">
+            <div class="logotipo">
+                <img src="{% static 'img/logo.png' %}" alt="logotipo" style="height: 100px;">
+            </div>
+
+            <div id="loginContainer">
+                <form class="form-inline mr-10" id="loginForm" method="POST">
+                    {% csrf_token %}
+                    {{ form.username.label_tag }} {{ form.username }} 
+                    {{ form.password.label_tag }} {{ form.password }}
+                    <button class="btn btn-primary" type="submit" style="background-color: #228B22">Entrar</button>
+                </form>
+                <div class="mt-1">
+                    <a href="#" id="showcadULink" class="text-success">Quero me cadastrar!</a>
+                </div>
+            </div>
+
+            <div id="welcomeMessage" class="text-success" style="display: none;"></div>
+        </div>
+    </header>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top" style="top: 120px; background-color: #e3f2fd;">
+        <div class="container">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown ">
+                        <a class="nav-link dropdown-toggle text-success" href="#" id="meusDadosDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Meus Dados
+                        </a>
+                        <div class="dropdown-menu text-success" aria-labelledby="meusDadosDropdown" style="background-color: #e3f2fd;">
+                            <a class="dropdown-item text-success" href="#" id="showImcLink">Cálculo IMC</a>
+                            <a class="dropdown-item text-success" href="#" id="showDietaLink">Refeições</a>
+                            <a class="dropdown-item text-success" href="#" id="showPlanoDLink">Planejar Dieta</a>
+                            <a class="dropdown-item text-success" href="#" id="ShowCalLink">Meus Registros</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-success" href="#" id="showDicaAlimLink">Dicas de Alimentação</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-success" href="#" id="showDicasptLink">Atividades Físicas</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="{% static 'img/carrocel1.jpg' %}" class="d-block w-100" alt="Imagem 1">
+            </div>
+            <div class="carousel-item">
+                <img src="{% static 'img/carrocel2.jpg' %}" class="d-block w-100" alt="Imagem 2">
+            </div>
+            <div class="carousel-item">
+                <img src="{% static 'img/carrocel3.jpg' %}" class="d-block w-100" alt="Imagem 3">
+            </div>
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Anterior</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Próximo</span>
+        </a>
+    </div>
+
+    <main>
+        <section class="container">
+            <div class="image-container">
+                <div class="row">
+                    <div class="col-md-3 column mb-4">
+                        <img src="{% static 'img/icnAlimento.png' %}" alt="icnAlimento" style="height: 100px">
+                        <a href="#" id="showAlimLink" class="btn text-light">
+                            <h3>Alimentação</h3>
+                            <p>Sua Dieta diária e saudável</p>
+                        </a>
+                    </div>
+                    <div class="col-md-3 column mb-4">
+                        <img src="{% static 'img/incSaude.png' %}" alt="incSaude" style="height: 100px">
+                        <a href="#" class="btn text-light">
+                            <h3>Esporte e Saúde</h3>
+                            <p>Atividades Físicas</p>
+                        </a>
+                    </div>
+                    <div class="col-md-3 column mb-4">
+                        <img src="{% static 'img/incestatistica.png' %}" alt="incestatistica" style="height: 100px">
+                        <a href="#" id="showestaticLink" class="btn text-light">
+                            <h3>Análise</h3>
+                            <p>Será que estou progredindo?</p>
+                        </a>
+                    </div>
+                    <div class="col-md-3 column mb-4">
+                        <img src="{% static 'img/incKcal.png' %}" alt="incKcal" style="height: 100px">
+                        <a href="#" id="showKCalLink" class="btn text-light">
+                            <h3>Calculadora Kcal</h3>
+                            <p>Calcular calorias</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="content">
+            <div class=" text-container">
+                <p>Crie uma dieta alinhada às suas necessidades específicas e priorize seu bem-estar. Com a ajuda do nosso site, você poderá acessar dicas valiosas sobre os melhores alimentos para consumir, incluindo a quantidade de nutrientes e vitaminas adequadas para cada tipo de alimento. Nosso conteúdo detalhado oferece informações sobre nutrientes essenciais, como proteínas, carboidratos, vitaminas e minerais, para que você possa tomar decisões informadas e manter uma alimentação equilibrada e saudável.</p>
+                <p>Além disso, oferecemos sugestões de atividades físicas adaptadas à sua faixa etária e condicionamento físico, ajudando você a escolher a prática esportiva ideal para alcançar mais disposição, bem-estar e autoestima. Seja qual for a sua idade, você encontrará orientações personalizadas para um estilo de vida mais ativo e saudável.</p>
+            </div>
+            <div class="imagemcontainer">
+                <img src="{% static 'img/imgfooter.png' %}" alt="Imgfoot">
+            </div>
+        </div>
+        <div class="dark-green-section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div>
+                            <h3>Aqui tem algumas dicas para você...</h3>
+                        </div>
+                        <div class="imgdark">
+                            <div class="image-item">
+                                <a href="https://www.example.com/image1">
+                                    <img src="{% static 'img/yoga.png' %}" alt="Imagem 1">
+                                    <span class="label">Saiba mais sobre Yoga</span>
+                                </a>
+                                <a href="https://www.example.com/image1" class="button" style="background-color: #228B22">Ver mais</a>
+                            </div>
+                            <div class="image-item">
+                                <a href="https://www.example.com/image2">
+                                    <img src="{% static 'img/pilates.png' %}" alt="Imagem 2">
+                                    <span class="label">Pilates</span>
+                                </a>
+                                <a href="https://www.example.com/image2" class="button" style="background-color: #228B22">Ver mais</a>
+                            </div>
+                            <div class="image-item">
+                                <a href="https://www.example.com/image3">
+                                    <img src="{% static 'img/dietas.png' %}" alt="Imagem 3">
+                                    <span class="label">Dietas</span>
+                                </a>
+                                <a href="https://www.example.com/image3" class="button" style="background-color: #228B22">Ver mais</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-container" style="background-color: rgba(0, 0, 0, 0.5); padding: 40px; border-radius: 10px; color: white;">
+                        <form>
+                            <h3>Fale conosco e participe deste projeto!</h3>
+                            <div class="form-group">
+                                <input type="text" placeholder="Nome" style="width: 100%" />
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-md-6" style="padding-right: 5px;">
+                                    <input type="date" placeholder="Data de Nascimento" style="width: 100%" />
+                                </div>
+                                <div class="col-md-6" style="width: 100%; padding-left: 60px;">
+                                    <select>
+                                        <option value="">Selecione seu sexo</option>
+                                        <option value="Masculino" style="width: 100%">Masculino</option>
+                                        <option value="Feminino" style="width: 100%">Feminino</option>
+                                        <option value="Não-binário" style="width: 100%">Não-binário</option>
+                                        <option value="Outro" style="width: 100%">Outro</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input type="tel" placeholder="Telefone" style="width: 100%" />
+                            </div>
+                            <div class="form-group">
+                                <input type="email" placeholder="E-mail" style="width: 100%" />
+                            </div>
+                            <div class="form-group" style="width: 100%">
+                                <textarea placeholder="Mensagem" style="width: 100%; height: 100px;"></textarea>
+                            </div>
+                            <br>
+                            <div>
+                                <button style="width: 100%;">Enviar</button>
+                            </div>
+                            <br>
+                            <div style="width: 100%; text -align:justify;">
+                                <h5>Conte-nos o que você achou da sua experiência <br>
+                                e como podemos melhorar ainda mais, fornecendo <br>
+                                informações e recursos que atendam melhor às suas <br>
+                                necessidades. Sua opinião é essencial para que <br>
+                                possamos continuar evoluindo e proporcionando um <br>
+                                conteúdo relevante e útil.</h5>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="autor">
+            <p><h5>Copyright © Grupo 13 - Projeto Integrador II - Univesp</h5></p>
+        </div>
+    </footer>
+
+    <script>
+        // JavaScript para gerenciar os overlays e outras interações
+        document.getElementById('showDicaAlimLink').addEventListener('click', function(event) {
+            event.preventDefault();
+            const overlay = document.getElementById('overlayDicaAl');
+            overlay.style.display = overlay.style.display === 'none' || overlay.style.display === '' ? 'flex' : 'none';
+        });
+
+        // Fecha o overlay ao clicar fora do iframe
+        document.getElementById('overlayDicaAl').addEventListener('click', function(event) {
+            if (event.target === this) {
+                this.style.display = 'none';
+            }
+        });
+
+        // Adicione outros scripts para gerenciar os overlays conforme necessário
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
